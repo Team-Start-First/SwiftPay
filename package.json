@@ -17,6 +17,7 @@
     "cors": "^2.8.5",
     "emailjs-com": "^3.2.0",
     "express": "^5.1.0",
+    "framer-motion": "^12.23.26",
     "motion": "^12.15.0",
     "mysql2": "^3.14.3",
     "react": "^19.0.0",
