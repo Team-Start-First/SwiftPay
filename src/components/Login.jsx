@@ -2,8 +2,12 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { RiSecurePaymentLine } from "react-icons/ri";
 import { FcGoogle } from "react-icons/fc";
+import { supabase } from "../supabase";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -39,19 +43,66 @@ const Login = () => {
     return newErrors;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const formErrors = validateForm();
 
-    if (Object.keys(formErrors).length === 0) {
-      setIsSubmitting(true);
-      setTimeout(() => {
-        alert("Login successful!");
-        setIsSubmitting(false);
-      }, 1500);
-    } else {
+    const formErrors = validateForm();
+    if (Object.keys(formErrors).length > 0) {
       setErrors(formErrors);
+      return;
     }
+
+    setIsSubmitting(true);
+
+    const { email, password } = formData;
+
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    if (error) {
+      setIsSubmitting(false);
+
+      if (error.message.toLowerCase().includes("invalid")) {
+        setErrors({
+          email: "Invalid email or password",
+          password: "Invalid email or password",
+        });
+      } else {
+        alert(error.message);
+      }
+
+      return;
+    }
+
+    setIsSubmitting(false);
+
+    // Login successful
+    alert("Welcome back 🎉");
+    navigate("/Card");
+  };
+  const handleForgotPassword = async () => {
+    const email = prompt("Enter your email for password reset:");
+    if (!email) return;
+
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: "http://localhost:5173/reset-password", // adjust as needed
+    });
+
+    if (error) alert(error.message);
+    else alert("Password reset email sent!");
+  };
+
+  const handleGoogleLogin = async () => {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: "http://localhost:5173/Card", // or /dashboard
+      },
+    });
+
+    if (error) alert(error.message);
   };
 
   const togglePasswordVisibility = () => setShowPassword(!showPassword);
@@ -83,7 +134,10 @@ const Login = () => {
           {/* Social Login */}
           <div className="px-6 py-8">
             <div className="flex justify-center">
-              <button className="w-[20rem] flex items-center justify-center gap-2 bg-white border border-gray-300 rounded-3xl py-2.5 px-4 text-sm font-medium text-gray-700 hover:bg-gray-200 transition-colors">
+              <button
+                onClick={handleGoogleLogin}
+                className="w-[20rem] flex items-center justify-center gap-2 bg-white border border-gray-300 rounded-3xl py-2.5 px-4 text-sm font-medium text-gray-700 hover:bg-gray-200 transition-colors"
+              >
                 <FcGoogle className="size-5" />
                 Continue with Google
               </button>
@@ -199,9 +253,12 @@ const Login = () => {
                   />
                   <span className="ml-2">Remember me</span>
                 </label>
-                <a href="#" className="text-sm text-green-600 hover:underline">
+                <button
+                  onClick={handleForgotPassword}
+                  className="text-sm text-green-600 hover:underline"
+                >
                   Forgot password?
-                </a>
+                </button>
               </div>
 
               {/* Submit button */}

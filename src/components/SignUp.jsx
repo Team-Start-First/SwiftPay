@@ -2,11 +2,16 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { RiSecurePaymentLine } from "react-icons/ri";
 import { FcGoogle } from "react-icons/fc";
+import { supabase } from "../supabase";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
+
     email: "",
     password: "",
     country: "Nigeria",
@@ -64,25 +69,79 @@ const SignUp = () => {
     return newErrors;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const formErrors = validateForm();
 
-    if (Object.keys(formErrors).length === 0) {
-      setIsSubmitting(true);
-      // Simulate API call
-      setTimeout(() => {
-        alert("Account created successfully!");
-        setIsSubmitting(false);
-      }, 1500);
-    } else {
-      setErrors(formErrors);
+    const formErrors = validateForm();
+    if (Object.keys(formErrors).length > 0) return setErrors(formErrors);
+
+    setIsSubmitting(true);
+
+    const { firstName, lastName, email, password, country } = formData;
+
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: { first_name: firstName, last_name: lastName, country },
+      },
+    });
+
+    setIsSubmitting(false);
+
+    if (error) {
+      // ✅ Duplicate email handling
+      if (
+        error.message.toLowerCase().includes("already") ||
+        error.status === 400
+      ) {
+        setErrors({ email: "Email already registered. Please log in." });
+        return;
+      }
+      alert(error.message);
+      return;
     }
+
+    // ✅ Insert profile only if user exists
+    if (data?.user) {
+      await supabase.from("profiles").insert({
+        id: data.user.id,
+        email,
+        first_name: firstName,
+        last_name: lastName,
+        country,
+      });
+    }
+
+    alert(
+      "Signup successful! Check your email to verify your account,then Login",
+    );
+    navigate("/login");
+  };
+
+  const handleGoogleLogin = async () => {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: "http://localhost:5173/Login", // or /dashboard
+      },
+    });
+
+    if (error) alert(error.message);
   };
 
   // Toggle password visibility
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
+  };
+  const checkEmailFormat = (email) => {
+    if (!email) {
+      setEmailStatus(null);
+      return;
+    }
+
+    const isValid = /\S+@\S+\.\S+/.test(email);
+    setEmailStatus(isValid ? "available" : "invalid");
   };
 
   return (
@@ -113,7 +172,10 @@ const SignUp = () => {
             {/* Social Login Buttons */}
             <div className="flex justify-center">
               <div className="space-y-3 w-[20rem]">
-                <button className="w-full flex items-center justify-center gap-2 bg-white border border-gray-300 rounded-3xl py-2.5 px-4 text-sm font-medium text-gray-700 hover:bg-gray-200 transition-colors">
+                <button
+                  onClick={handleGoogleLogin}
+                  className="w-full flex items-center justify-center gap-2 bg-white border border-gray-300 rounded-3xl py-2.5 px-4 text-sm font-medium text-gray-700 hover:bg-gray-200 transition-colors"
+                >
                   <FcGoogle className="size-5" />
                   Continue with Google
                 </button>
@@ -143,8 +205,9 @@ const SignUp = () => {
                     name="firstName"
                     value={formData.firstName}
                     onChange={handleChange}
-                    className={`w-full px-4 py-2.5 border rounded-md focus:ring-2 focus:ring-purple-300 focus:border-purple-500 outline-none transition ${errors.firstName ? "border-red-500" : "border-gray-300"
-                      }`}
+                    className={`w-full px-4 py-2.5 border rounded-md focus:ring-2 focus:ring-purple-300 focus:border-purple-500 outline-none transition ${
+                      errors.firstName ? "border-red-500" : "border-gray-300"
+                    }`}
                   />
                   {errors.firstName && (
                     <p className="mt-1 text-sm text-red-600">
@@ -165,8 +228,9 @@ const SignUp = () => {
                     name="lastName"
                     value={formData.lastName}
                     onChange={handleChange}
-                    className={`w-full px-4 py-2.5 border rounded-md focus:ring-2 focus:ring-purple-300 focus:border-purple-500 outline-none transition ${errors.lastName ? "border-red-500" : "border-gray-300"
-                      }`}
+                    className={`w-full px-4 py-2.5 border rounded-md focus:ring-2 focus:ring-purple-300 focus:border-purple-500 outline-none transition ${
+                      errors.lastName ? "border-red-500" : "border-gray-300"
+                    }`}
                   />
                   {errors.lastName && (
                     <p className="mt-1 text-sm text-red-600">
@@ -188,10 +252,13 @@ const SignUp = () => {
                   type="email"
                   id="email"
                   name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className={`w-full px-4 py-2.5 border rounded-md focus:ring-2 focus:ring-purple-300 focus:border-purple-500 outline-none transition ${errors.email ? "border-red-500" : "border-gray-300"
-                    }`}
+                  onChange={(e) => {
+                    handleChange(e);
+                    checkEmailFormat(e.target.value);
+                  }}
+                  className={`w-full px-4 py-2.5 border rounded-md focus:ring-2 focus:ring-purple-300 focus:border-purple-500 outline-none transition ${
+                    errors.email ? "border-red-500" : "border-gray-300"
+                  }`}
                 />
                 {errors.email && (
                   <p className="mt-1 text-sm text-red-600">{errors.email}</p>
@@ -212,8 +279,9 @@ const SignUp = () => {
                   name="password"
                   value={formData.password}
                   onChange={handleChange}
-                  className={`w-full px-4 py-2.5 border rounded-md focus:ring-2 focus:ring-purple-300 focus:border-purple-500 outline-none transition ${errors.password ? "border-red-500" : "border-gray-300"
-                    }`}
+                  className={`w-full px-4 py-2.5 border rounded-md focus:ring-2 focus:ring-purple-300 focus:border-purple-500 outline-none transition ${
+                    errors.password ? "border-red-500" : "border-gray-300"
+                  }`}
                 />
                 <button
                   type="button"
@@ -316,8 +384,9 @@ const SignUp = () => {
                     type="checkbox"
                     checked={formData.agreeToTerms}
                     onChange={handleChange}
-                    className={`w-4 h-4 text-green-600 border-gray-300 rounded focus:ring-green-500 ${errors.agreeToTerms ? "border-red-500" : ""
-                      }`}
+                    className={`w-4 h-4 text-green-600 border-gray-300 rounded focus:ring-green-500 ${
+                      errors.agreeToTerms ? "border-red-500" : ""
+                    }`}
                   />
                 </div>
                 <div className="ml-3 text-sm">
@@ -347,8 +416,9 @@ const SignUp = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className={`w-full bg-purple-400 hover:bg-purple-700 text-black font-medium py-3 px-4 rounded-3xl transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-300 ${isSubmitting ? "opacity-75 cursor-not-allowed" : ""
-                  }`}
+                className={`w-full bg-purple-400 hover:bg-purple-700 text-black font-medium py-3 px-4 rounded-3xl transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-300 ${
+                  isSubmitting ? "opacity-75 cursor-not-allowed" : ""
+                }`}
               >
                 {isSubmitting ? "Creating account..." : "Create my account"}
               </button>
@@ -358,7 +428,10 @@ const SignUp = () => {
             <div className="mt-6 text-center">
               <p className="text-sm text-gray-600">
                 Already have an account?
-                <Link to="/Login" className="text-green-600 font-medium hover:underline ml-1">
+                <Link
+                  to="/Login"
+                  className="text-green-600 font-medium hover:underline ml-1"
+                >
                   Log in
                 </Link>
               </p>
