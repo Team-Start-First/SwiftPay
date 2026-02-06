@@ -70,37 +70,34 @@ const SignUp = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    const formErrors = validateForm();
-    if (Object.keys(formErrors).length > 0) return setErrors(formErrors);
+  const formErrors = validateForm();
+  if (Object.keys(formErrors).length > 0) {
+    setErrors(formErrors);
+    return;
+  }
 
-    setIsSubmitting(true);
+  setIsSubmitting(true);
+  setErrors({});
 
-    const { firstName, lastName, email, password, country } = formData;
+  const { firstName, lastName, email, password, country } = formData;
 
+  try {
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: {
-        data: { first_name: firstName, last_name: lastName, country },
+        emailRedirectTo: "http://localhost:5173/EmailConfirmed",
+        data: {
+          first_name: firstName,
+          last_name: lastName,
+          country,
+        },
       },
     });
 
-    setIsSubmitting(false);
-
-    if (error) {
-      // ✅ Duplicate email handling
-      if (
-        error.message.toLowerCase().includes("already") ||
-        error.status === 400
-      ) {
-        setErrors({ email: "Email already registered. Please log in." });
-        return;
-      }
-      alert(error.message);
-      return;
-    }
+    if (error) throw error;
 
     // ✅ Insert profile only if user exists
     if (data?.user) {
@@ -114,10 +111,25 @@ const SignUp = () => {
     }
 
     alert(
-      "Signup successful! Check your email to verify your account,then Login",
+      "Signup successful! Please check your email to verify your account."
     );
-    navigate("/login");
-  };
+
+    navigate("/login"); // user still must confirm email
+
+  } catch (err) {
+    if (
+      err.message?.toLowerCase().includes("already") ||
+      err.status === 400
+    ) {
+      setErrors({ email: "Email already registered. Please log in." });
+    } else {
+      alert(err.message || "Something went wrong. Please try again.");
+    }
+  } finally {
+    setIsSubmitting(false);
+  }
+};
+
 
   const handleGoogleLogin = async () => {
     const { error } = await supabase.auth.signInWithOAuth({
@@ -143,6 +155,8 @@ const SignUp = () => {
     const isValid = /\S+@\S+\.\S+/.test(email);
     setEmailStatus(isValid ? "available" : "invalid");
   };
+
+
 
   return (
     <div className="min-h-screen relative flex items-center justify-center bg-white">
@@ -430,7 +444,7 @@ const SignUp = () => {
                 Already have an account?
                 <Link
                   to="/Login"
-                  className="text-green-600 font-medium hover:underline ml-1"
+                  className="text-purple-600 font-medium hover:underline ml-1"
                 >
                   Log in
                 </Link>

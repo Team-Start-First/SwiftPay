@@ -82,17 +82,7 @@ const Login = () => {
     alert("Welcome back 🎉");
     navigate("/Card");
   };
-  const handleForgotPassword = async () => {
-    const email = prompt("Enter your email for password reset:");
-    if (!email) return;
 
-    const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: "http://localhost:5173/reset-password", // adjust as needed
-    });
-
-    if (error) alert(error.message);
-    else alert("Password reset email sent!");
-  };
 
   const handleGoogleLogin = async () => {
     const { error } = await supabase.auth.signInWithOAuth({
@@ -253,12 +243,12 @@ const Login = () => {
                   />
                   <span className="ml-2">Remember me</span>
                 </label>
-                <button
-                  onClick={handleForgotPassword}
-                  className="text-sm text-green-600 hover:underline"
+                <Link
+                  to="/ForgotPassword"
+                  className="text-sm text-purple-600 hover:underline"
                 >
                   Forgot password?
-                </button>
+                </Link>
               </div>
 
               {/* Submit button */}
@@ -279,7 +269,7 @@ const Login = () => {
                 Don’t have an account?
                 <Link
                   to="/signup"
-                  className="text-green-600 font-medium hover:underline ml-1"
+                  className="text-purple-600 font-medium hover:underline ml-1"
                 >
                   Sign up
                 </Link>
