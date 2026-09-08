@@ -5,8 +5,8 @@ import { LuZap } from "react-icons/lu";
 import { FiGlobe, FiCheck, FiChevronDown, FiSend, FiMail, FiPhone, FiMapPin } from "react-icons/fi";
 import { MdSupportAgent } from "react-icons/md";
 import { Link } from "react-router-dom";
-import FeaturedCard from "./FeaturedCard";
-import Nav from "./Nav";
+import FeaturedCard from "../ui/FeaturedCard";
+import Nav from "../layout/Nav";
 import Currency from "./Currency";
 import Testimonials from "./Testimonials";
 

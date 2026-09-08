@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { RiSecurePaymentLine } from "react-icons/ri";
 import { FcGoogle } from "react-icons/fc";
-import { supabase } from "../supabase";
+import { supabase } from "../lib/supabase";
 import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
