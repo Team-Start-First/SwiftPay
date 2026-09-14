@@ -80,7 +80,7 @@ const Login = () => {
 
     // Login successful
     alert("Welcome back 🎉");
-    navigate("/Card");
+    navigate("/Dashboard");
   };
 
 
@@ -88,7 +88,7 @@ const Login = () => {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: "http://localhost:5173/Card", // or /dashboard
+        redirectTo: "http://localhost:5173/Dashboard",
       },
     });
 

@@ -1,20 +1,20 @@
 import { FiSend, FiPlus, FiRepeat, FiClock } from "react-icons/fi";
-
+ 
 const ACTIONS = [
-  { label: "Send Money", icon: FiSend, primary: true },
-  { label: "Add Funds", icon: FiPlus },
-  { label: "Convert", icon: FiRepeat },
-  { label: "Request", icon: FiClock },
+  { id: "send", label: "Send Money", icon: FiSend, primary: true },
+  { id: "add-funds", label: "Add Funds", icon: FiPlus },
+  { id: "convert", label: "Convert", icon: FiRepeat },
+  { id: "request", label: "Request", icon: FiClock },
 ];
-
+ 
 const QuickActions = ({ onAction }) => {
   return (
     <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-      {ACTIONS.map(({ label, icon: Icon, primary }) => (
+      {ACTIONS.map(({ id, label, icon: Icon, primary }) => (
         <button
-          key={label}
+          key={id}
           type="button"
-          onClick={() => onAction?.(label)}
+          onClick={() => onAction?.(id)}
           className={`flex items-center justify-center gap-2 rounded-2xl px-4 py-4 text-sm font-semibold transition-all duration-300 hover:-translate-y-0.5 ${
             primary
               ? "text-white bg-gradient-to-r from-purple-500 to-pink-600 shadow-lg shadow-pink-500/25"
@@ -28,5 +28,5 @@ const QuickActions = ({ onAction }) => {
     </div>
   );
 };
-
+ 
 export default QuickActions;

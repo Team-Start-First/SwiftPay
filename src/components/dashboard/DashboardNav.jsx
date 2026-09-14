@@ -1,7 +1,9 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { NavLink, Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiMenu, FiX } from "react-icons/fi";
+import { useAuth } from "../../context/AuthContext";
+import { getDisplayName, getInitials } from "../../utils/userDisplay";
 
 const NAV_LINKS = [
   { to: "/dashboard", label: "Dashboard" },
@@ -42,17 +44,41 @@ const mobileLinkClasses = ({ isActive }) =>
 
 /**
  * Dashboard header. Nav links live in ONE data array (NAV_LINKS) so the
- * desktop pill bar and the mobile menu never fall out of sync — this is
- * what was missing before: the desktop nav was just hidden below md with
- * no mobile equivalent, so those links became unreachable on small screens.
+ * desktop pill bar and the mobile menu never fall out of sync.
+ *
+ * Mobile menu notes:
+ * - Uses `h-[100dvh]` (falls back to `h-screen` for older browsers) instead
+ *   of `h-screen` alone, so it isn't cut short by mobile browser address
+ *   bars that shrink/grow the viewport.
+ * - `overflow-y-auto` on the inner list so it never clips content on short
+ *   viewports (e.g. landscape phones).
+ * - z-50, above the sticky header's z-30, so there's no stacking ambiguity.
+ * - Closes on Escape for accessibility, in addition to the X button,
+ *   backdrop tap, and link clicks.
  */
-const DashboardNav = ({ user = { name: "Alex", initials: "AO" } }) => {
+const DashboardNav = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { user, loading } = useAuth();
+  const name = getDisplayName(user);
+  const initials = getInitials(name);
 
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "auto";
-    return () => (document.body.style.overflow = "auto");
+    return () => {
+      document.body.style.overflow = "auto";
+    };
   }, [isOpen]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKeyDown = (e) => {
+      if (e.key === "Escape") setIsOpen(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [isOpen]);
+
+  const displayName = loading ? "" : name;
 
   return (
     <header className="sticky top-0 z-30 bg-slate-50/80 backdrop-blur-md">
@@ -76,17 +102,18 @@ const DashboardNav = ({ user = { name: "Alex", initials: "AO" } }) => {
           ))}
         </nav>
 
-        <button
-          type="button"
+        <Link
+          to="/settings"
           className="hidden md:flex items-center gap-2 pl-2 pr-3 py-1.5 rounded-full bg-white/50 backdrop-blur-xl border border-white/40 shadow-sm"
         >
-          <span className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white text-xs font-bold">
-            {user.initials}
+          <span className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white text-xs font-bold shrink-0">
+            {initials}
           </span>
-          <span className="text-sm font-semibold text-slate-700">{user.name}</span>
-        </button>
+          <span className="text-sm font-semibold text-slate-700 max-w-[140px] truncate">
+            {displayName}
+          </span>
+        </Link>
 
-        {/* Mobile trigger — this is what was missing */}
         <button
           type="button"
           onClick={() => setIsOpen(true)}
@@ -105,7 +132,10 @@ const DashboardNav = ({ user = { name: "Alex", initials: "AO" } }) => {
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="fixed inset-0 z-40 md:hidden bg-white/95 backdrop-blur-lg"
+            role="dialog"
+            aria-modal="true"
+            className="fixed inset-0 z-50 md:hidden bg-white/95 backdrop-blur-lg h-[100dvh] h-screen overflow-y-auto overscroll-contain"
+            style={{ paddingTop: "env(safe-area-inset-top)", paddingBottom: "env(safe-area-inset-bottom)" }}
           >
             <div className="flex items-center justify-between px-6 py-5">
               <div className="flex items-center gap-2">
@@ -124,7 +154,7 @@ const DashboardNav = ({ user = { name: "Alex", initials: "AO" } }) => {
               </button>
             </div>
 
-            <div className="flex flex-col items-start px-6 mt-4 gap-1">
+            <div className="flex flex-col items-start px-6 mt-4 gap-1 pb-8">
               {NAV_LINKS.map((link) => (
                 <motion.div key={link.to} variants={itemVariants} className="w-full">
                   <NavLink to={link.to} onClick={() => setIsOpen(false)} className={mobileLinkClasses}>
@@ -134,12 +164,16 @@ const DashboardNav = ({ user = { name: "Alex", initials: "AO" } }) => {
               ))}
 
               <motion.div variants={itemVariants} className="w-full pt-4 mt-4 border-t border-slate-200">
-                <div className="flex items-center gap-3 px-4 py-3">
-                  <span className="w-9 h-9 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white text-xs font-bold">
-                    {user.initials}
+                <Link
+                  to="/settings"
+                  onClick={() => setIsOpen(false)}
+                  className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 transition-colors"
+                >
+                  <span className="w-9 h-9 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white text-xs font-bold shrink-0">
+                    {initials}
                   </span>
-                  <span className="font-semibold text-slate-800">{user.name}</span>
-                </div>
+                  <span className="font-semibold text-slate-800 truncate">{displayName}</span>
+                </Link>
               </motion.div>
             </div>
           </motion.div>
