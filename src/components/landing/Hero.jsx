@@ -189,7 +189,7 @@ const Hero = () => {
       </section>
 
       {/* ================= FEATURES SECTION ================= */}
-      <section id="features" className="bg-white py-20">
+      <section id="features" className="bg-white py-20 dark:bg-gray-900 transition-colors duration-300">
         <h2 className="text-4xl md:text-5xl font-bold text-pink-700 text-center">
           Why Choose SwiftPay
         </h2>
