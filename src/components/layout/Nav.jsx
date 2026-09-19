@@ -64,37 +64,6 @@ const Navbar = () => {
     },
   };
 
-  const toggleMenu = () => setIsOpen(!isOpen);
-  const closeMenu = () => setIsOpen(false);
-   const [theme, setTheme] = useState("light");
-
-  useEffect(() => {
-    const savedTheme = localStorage.getItem("theme");
-    const systemPrefersDark = window.matchMedia(
-      "(prefers-color-scheme: dark)"
-    ).matches;
-
-    if (savedTheme) {
-      setTheme(savedTheme);
-    } else if (systemPrefersDark) {
-      setTheme("dark");
-    }
-  }, []);
-
-  useEffect(() => {
-    const html = document.documentElement;
-    html.setAttribute("data-theme", theme);
-    localStorage.setItem("theme", theme);
-  }, [theme]);
-
-  useEffect(() => {
-    AOS.init({ duration: 1000 });
-  }, []);
-
-  const toggleTheme = () => {
-    setTheme(theme === "light" ? "dark" : "light");
-  };
-
   return (
     <nav className="fixed top-6 z-50 inset-x-0 pointer-events-auto">
       <div className="flex items-center justify-between px-6 py-3 max-w-7xl mx-auto">

@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
+import { FiSun, FiMoon } from "react-icons/fi";
 import { NavLink, Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiMenu, FiX, FiHelpCircle, FiLogOut } from "react-icons/fi";
 import { useAuth } from "../../context/AuthContext";
 import { getDisplayName, getInitials } from "../../utils/userDisplay";
 import ProfileDropdown from "./ProfileDropdown";
+import AOS from "aos";
+import "aos/dist/aos.css";
  
 const NAV_LINKS = [
   { to: "/dashboard", label: "Dashboard" },
@@ -85,42 +88,103 @@ const DashboardNav = () => {
     setIsOpen(false);
     await signOut();
   };
- 
+
+  const [theme, setTheme] = useState("light");
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme");
+    const systemPrefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)"
+    ).matches;
+
+    if (savedTheme) {
+      setTheme(savedTheme);
+    } else if (systemPrefersDark) {
+      setTheme("dark");
+    }
+  }, []);
+
+  useEffect(() => {
+    const html = document.documentElement;
+    html.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  useEffect(() => {
+    AOS.init({ duration: 1000 });
+  }, []);
+
+  const toggleTheme = () => {
+    setTheme(theme === "light" ? "dark" : "light");
+  };
+
   return (
-    <header className="sticky top-0 z-30 bg-slate-50/80 backdrop-blur-md">
+    <header className="sticky top-0 z-30 bg-slate-50/80 dark:bg-slate-950/80 backdrop-blur-md">
       <div className="flex items-center justify-between gap-3 max-w-6xl mx-auto px-4 sm:px-6 py-4">
         <Link
           to="/dashboard"
-          className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/50 backdrop-blur-xl border border-white/40 shadow-sm shrink-0"
+          className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/50 dark:bg-slate-900/50 backdrop-blur-xl border border-white/40 shadow-sm shrink-0"
         >
           <span className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-pink-500 flex items-center justify-center">
             <span className="text-white font-bold text-sm">S</span>
           </span>
-          <span className="font-semibold text-slate-900">SwiftPay</span>
+          <span className="font-semibold text-slate-900 dark:text-white">SwiftPay</span>
         </Link>
  
         {/* Desktop nav — hidden below md, replaced by the mobile menu below */}
-        <nav className="hidden md:flex items-center gap-1 bg-white/40 backdrop-blur-lg border border-white/40 rounded-full p-1.5 shadow-sm">
+        <nav className="hidden md:flex items-center gap-1 bg-white/40 dark:bg-slate-900/40 backdrop-blur-lg border border-white/40 rounded-full p-1.5 shadow-sm">
           {NAV_LINKS.map((link) => (
             <NavLink key={link.to} to={link.to} className={desktopLinkClasses}>
               {link.label}
             </NavLink>
           ))}
         </nav>
- 
+         
+        <div className="hidden md:flex items-center gap-2">
+            <div
+              onClick={toggleTheme}
+              aria-label={`Switch to ${
+                theme === "dark" ? "light" : "dark"
+              } mode`}
+              className="flex items-center justify-center w-10 h-10 rounded-full bg-white/50 dark:bg-slate-800/60 backdrop-blur-xl border border-white/40 dark:border-slate-700 shadow-sm text-slate-900 dark:text-slate-100 transition-colors"
+            >
+              {theme === "dark" ? (
+                <FiMoon className="size-{17}" />
+              ) : (
+                <FiSun className="size-{17} " />
+              )}
+            </div>
         <div className="hidden md:block">
           <ProfileDropdown />
         </div>
+        </div>
  
+
+       <div className="md:hidden flex items-center gap-2">
+        <div
+              onClick={toggleTheme}
+              aria-label={`Switch to ${
+                theme === "dark" ? "light" : "dark"
+              } mode`}
+              className="flex items-center justify-center w-10 h-10 rounded-full bg-white/50 dark:bg-slate-800/60 backdrop-blur-xl border border-white/40 dark:border-slate-700 shadow-sm text-slate-900 dark:text-slate-100 transition-colors"
+            >
+              {theme === "dark" ? (
+                <FiMoon className="size-{17}" />
+              ) : (
+                <FiSun className="size-{17} " />
+              )}
+            </div>
+
         <button
           type="button"
           onClick={() => setIsOpen(true)}
           aria-label="Open menu"
           aria-expanded={isOpen}
-          className="md:hidden flex items-center justify-center w-10 h-10 rounded-full bg-white/50 backdrop-blur-xl border border-white/40 shadow-sm text-slate-900"
+          className="md:hidden flex items-center justify-center w-10 h-10 rounded-full bg-white/50 backdrop-blur-xl border border-white/40 dark:bg-slate-900/50 shadow-sm text-slate-900 dark:text-white"
         >
           <FiMenu size={20} />
         </button>
+      </div>
       </div>
  
       <AnimatePresence>
@@ -132,7 +196,7 @@ const DashboardNav = () => {
             exit="exit"
             role="dialog"
             aria-modal="true"
-            className="fixed inset-0 z-50 md:hidden bg-white/95 backdrop-blur-lg h-[100dvh] h-screen overflow-y-auto overscroll-contain"
+            className="fixed inset-0 z-50 md:hidden bg-white/95 dark:bg-slate-900/95 backdrop-blur-lg h-[100dvh] h-screen overflow-y-auto overscroll-contain"
             style={{ paddingTop: "env(safe-area-inset-top)", paddingBottom: "env(safe-area-inset-bottom)" }}
           >
             <div className="flex items-center justify-between px-6 py-5">
@@ -140,19 +204,19 @@ const DashboardNav = () => {
                 <span className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-pink-500 flex items-center justify-center">
                   <span className="text-white font-bold text-sm">S</span>
                 </span>
-                <span className="font-semibold text-slate-900">SwiftPay</span>
+                <span className="font-semibold text-slate-900 dark:text-white">SwiftPay</span>
               </div>
               <button
                 type="button"
                 onClick={() => setIsOpen(false)}
                 aria-label="Close menu"
-                className="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center text-slate-900"
+                className="w-10 h-10 rounded-full bg-white dark:bg-slate-800 shadow-sm flex items-center justify-center text-slate-900 dark:text-white "
               >
                 <FiX size={20} />
               </button>
             </div>
  
-            <div className="flex flex-col items-start px-6 mt-4 gap-1 pb-8">
+            <div className="flex flex-col items-start px-6 mt-4 gap-1 pb-8 ">
               {NAV_LINKS.map((link) => (
                 <motion.div key={link.to} variants={itemVariants} className="w-full">
                   <NavLink to={link.to} onClick={() => setIsOpen(false)} className={mobileLinkClasses}>
@@ -161,22 +225,22 @@ const DashboardNav = () => {
                 </motion.div>
               ))}
  
-              <motion.div variants={itemVariants} className="w-full pt-4 mt-4 border-t border-slate-200 space-y-1">
+              <motion.div variants={itemVariants} className="w-full pt-4 mt-4 border-t border-slate-200 dark:border-slate-700 space-y-1">
                 <Link
                   to="/settings"
                   onClick={() => setIsOpen(false)}
-                  className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 transition-colors"
+                  className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                 >
                   <span className="w-9 h-9 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white text-xs font-bold shrink-0">
                     {initials}
                   </span>
-                  <span className="font-semibold text-slate-800 truncate">{displayName}</span>
+                  <span className="font-semibold text-slate-800 dark:text-slate-100 truncate">{displayName}</span>
                 </Link>
  
                 <Link
                   to="/settings#help-support"
                   onClick={() => setIsOpen(false)}
-                  className="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 hover:bg-slate-100 transition-colors"
+                  className="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                 >
                   <FiHelpCircle size={18} />
                   <span className="font-medium">Help &amp; support</span>
@@ -185,7 +249,7 @@ const DashboardNav = () => {
                 <button
                   type="button"
                   onClick={handleMobileSignOut}
-                  className="flex items-center gap-3 w-full px-4 py-3 rounded-xl text-red-600 hover:bg-red-50 transition-colors"
+                  className="flex items-center gap-3 w-full px-4 py-3 rounded-xl text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/40 transition-colors"
                 >
                   <FiLogOut size={18} />
                   <span className="font-medium">Sign out</span>
