@@ -58,16 +58,16 @@ const TransactionPinSection = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="rounded-2xl bg-white/70 backdrop-blur-lg border border-white/70 p-6 space-y-4"
+      className="rounded-2xl bg-white/70 dark:bg-slate-900/70 backdrop-blur-lg border border-white/70 p-6 space-y-4"
     >
       <div>
-        <h2 className="text-base font-bold text-slate-900">Transaction PIN</h2>
-        <p className="text-xs text-slate-500 mt-1">Used to authorize sends and withdrawals. {PIN_LENGTH} digits.</p>
+        <h2 className="text-base font-bold text-slate-900 dark:text-white">Transaction PIN</h2>
+        <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Used to authorize sends and withdrawals. {PIN_LENGTH} digits.</p>
       </div>
-
+ 
       <div className="flex gap-4">
         <div>
-          <label htmlFor="pin" className="text-xs font-semibold text-slate-600">
+          <label htmlFor="pin" className="text-xs font-semibold text-slate-600 dark:text-slate-400">
             New PIN
           </label>
           <input
@@ -77,11 +77,11 @@ const TransactionPinSection = () => {
             maxLength={PIN_LENGTH}
             value={pin}
             onChange={(e) => setPin(e.target.value.replace(/\D/g, ""))}
-            className="mt-1.5 w-28 tracking-[0.5em] text-center bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
+            className="mt-1.5 w-28 tracking-[0.5em] text-center bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
           />
         </div>
         <div>
-          <label htmlFor="confirm-pin" className="text-xs font-semibold text-slate-600">
+          <label htmlFor="confirm-pin" className="text-xs font-semibold text-slate-600 dark:text-slate-400">
             Confirm PIN
           </label>
           <input
@@ -91,15 +91,15 @@ const TransactionPinSection = () => {
             maxLength={PIN_LENGTH}
             value={confirmPin}
             onChange={(e) => setConfirmPin(e.target.value.replace(/\D/g, ""))}
-            className="mt-1.5 w-28 tracking-[0.5em] text-center bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
+            className="mt-1.5 w-28 tracking-[0.5em] text-center bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
           />
         </div>
       </div>
-
+ 
       {message.text && (
-        <p className={`text-sm ${message.type === "error" ? "text-red-600" : "text-green-600"}`}>{message.text}</p>
+        <p className={`text-sm ${message.type === "error" ? "text-red-600 dark:text-red-400" : "text-green-600 dark:text-green-400"}`}>{message.text}</p>
       )}
-
+ 
       <button
         type="submit"
         disabled={!isValid || saving}

@@ -26,10 +26,10 @@ const AccountIdCard = () => {
   };
 
   return (
-    <div className="rounded-2xl bg-white/70 backdrop-blur-lg border border-white/70 p-5 flex items-center justify-between gap-4 flex-wrap">
+   <div className="rounded-2xl bg-white/70 dark:bg-slate-900/70 backdrop-blur-lg border border-white/70 p-5 flex items-center justify-between gap-4 flex-wrap">
       <div>
-        <p className="text-xs font-semibold text-slate-500">Your SwiftPay ID</p>
-        <p className="text-lg font-bold text-slate-900 tabular-nums mt-1">{accountId || "—"}</p>
+        <p className="text-xs font-semibold text-slate-500 dark:text-slate-400">Your SwiftPay ID</p>
+        <p className="text-lg font-bold text-slate-900 dark:text-white tabular-nums mt-1">{accountId || "—"}</p>
       </div>
       <button
         type="button"

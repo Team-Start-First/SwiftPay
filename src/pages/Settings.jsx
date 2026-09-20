@@ -20,13 +20,13 @@ const Settings = () => {
   }, [location]);
  
   return (
-    <div className="min-h-screen bg-slate-50">
+   <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
       <DashboardNav />
  
       <main className="max-w-3xl mx-auto px-4 sm:px-6 py-10 space-y-6">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">Settings</h1>
-          <p className="text-sm text-slate-600 mt-1">Manage your profile, security, and account details.</p>
+          <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Settings</h1>
+          <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">Manage your profile, security, and account details.</p>
         </div>
  
         <AccountIdCard />

@@ -46,13 +46,13 @@ const SendMoneyModal = ({ isOpen, onClose }) => {
     <Modal isOpen={isOpen} onClose={resetAndClose} title="Send money">
       {sent ? (
         <div className="text-center py-4">
-          <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-green-100 text-green-600 flex items-center justify-center text-2xl">
+          <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 flex items-center justify-center text-2xl">
             ✓
           </div>
-          <p className="font-semibold text-slate-900">
+          <p className="font-semibold text-slate-900 dark:text-white">
             {amount} {currency} sent to {recipient}
           </p>
-          <p className="text-sm text-slate-500 mt-1">This is a UI-only confirmation — wire up the real call above.</p>
+          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">This is a UI-only confirmation — wire up the real call above.</p>
           <button
             type="button"
             onClick={resetAndClose}
@@ -64,7 +64,7 @@ const SendMoneyModal = ({ isOpen, onClose }) => {
       ) : (
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label htmlFor="sm-recipient" className="text-xs font-semibold text-slate-600">
+            <label htmlFor="sm-recipient" className="text-xs font-semibold text-slate-600 dark:text-slate-400">
               Recipient (name or email)
             </label>
             <input
@@ -73,14 +73,14 @@ const SendMoneyModal = ({ isOpen, onClose }) => {
               value={recipient}
               onChange={(e) => setRecipient(e.target.value)}
               placeholder="e.g. michael@company.com"
-              className="mt-1.5 w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
+              className="mt-1.5 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
               required
             />
           </div>
-
+ 
           <div className="flex gap-2">
             <div className="flex-1">
-              <label htmlFor="sm-amount" className="text-xs font-semibold text-slate-600">
+              <label htmlFor="sm-amount" className="text-xs font-semibold text-slate-600 dark:text-slate-400">
                 Amount
               </label>
               <input
@@ -91,19 +91,19 @@ const SendMoneyModal = ({ isOpen, onClose }) => {
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
                 placeholder="0.00"
-                className="mt-1.5 w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
+                className="mt-1.5 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
                 required
               />
             </div>
             <div>
-              <label htmlFor="sm-currency" className="text-xs font-semibold text-slate-600">
+              <label htmlFor="sm-currency" className="text-xs font-semibold text-slate-600 dark:text-slate-400">
                 Currency
               </label>
               <select
                 id="sm-currency"
                 value={currency}
                 onChange={(e) => setCurrency(e.target.value)}
-                className="mt-1.5 bg-slate-50 border border-slate-200 rounded-xl px-2 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
+                className="mt-1.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-2 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
               >
                 {CURRENCIES.map((code) => (
                   <option key={code} value={code}>
@@ -113,9 +113,9 @@ const SendMoneyModal = ({ isOpen, onClose }) => {
               </select>
             </div>
           </div>
-
+ 
           <div>
-            <label htmlFor="sm-note" className="text-xs font-semibold text-slate-600">
+            <label htmlFor="sm-note" className="text-xs font-semibold text-slate-600 dark:text-slate-400">
               Note (optional)
             </label>
             <input
@@ -124,10 +124,10 @@ const SendMoneyModal = ({ isOpen, onClose }) => {
               value={note}
               onChange={(e) => setNote(e.target.value)}
               placeholder="What's this for?"
-              className="mt-1.5 w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
+              className="mt-1.5 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
             />
           </div>
-
+ 
           <button
             type="submit"
             disabled={!isValid || submitting}

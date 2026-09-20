@@ -22,10 +22,10 @@ const QuickConvert = () => {
   };
 
   return (
-    <div className="rounded-2xl bg-gradient-to-br from-purple-100 to-pink-100 p-5">
-      <h3 className="text-sm font-bold text-slate-900 mb-3">Quick convert</h3>
-
-      <label htmlFor="qc-amount" className="text-xs font-semibold text-slate-600">
+     <div className="rounded-2xl bg-gradient-to-br from-purple-100 to-pink-100 dark:from-slate-800 dark:to-slate-800 p-5">
+      <h3 className="text-sm font-bold text-slate-900 dark:text-white mb-3">Quick convert</h3>
+ 
+      <label htmlFor="qc-amount" className="text-xs font-semibold text-slate-600 dark:text-slate-400">
         You send
       </label>
       <div className="flex gap-2 mt-1.5 mb-3">
@@ -35,13 +35,13 @@ const QuickConvert = () => {
           min="0"
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
-          className="flex-1 min-w-0 bg-white/70 border border-white rounded-xl px-3 py-2 text-lg font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-purple-400"
+          className="flex-1 min-w-0 bg-white/70 dark:bg-slate-900/70 border border-white rounded-xl px-3 py-2 text-lg font-bold text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-400"
         />
         <select
           aria-label="Send currency"
           value={from}
           onChange={(e) => setFrom(e.target.value)}
-          className="bg-white/70 border border-white rounded-xl px-2 text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-purple-400"
+          className="bg-white/70 dark:bg-slate-900/70 border border-white rounded-xl px-2 text-sm font-semibold text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-2 focus:ring-purple-400"
         >
           {Object.keys(RATES).map((code) => (
             <option key={code} value={code}>
@@ -50,7 +50,7 @@ const QuickConvert = () => {
           ))}
         </select>
       </div>
-
+ 
       <div className="flex justify-center my-1">
         <button
           type="button"
@@ -61,10 +61,10 @@ const QuickConvert = () => {
           <FiRepeat size={14} />
         </button>
       </div>
-
-      <label className="text-xs font-semibold text-slate-600">Recipient gets</label>
+ 
+      <label className="text-xs font-semibold text-slate-600 dark:text-slate-400">Recipient gets</label>
       <div className="flex gap-2 mt-1.5">
-        <div className="flex-1 min-w-0 bg-white/70 border border-white rounded-xl px-3 py-2 text-lg font-bold text-slate-900 tabular-nums">
+        <div className="flex-1 min-w-0 bg-white/70 dark:bg-slate-900/70 border border-white rounded-xl px-3 py-2 text-lg font-bold text-slate-900 dark:text-white tabular-nums">
           {SYMBOLS[to]}
           {converted.toLocaleString(undefined, { maximumFractionDigits: 2 })}
         </div>
@@ -72,7 +72,7 @@ const QuickConvert = () => {
           aria-label="Receive currency"
           value={to}
           onChange={(e) => setTo(e.target.value)}
-          className="bg-white/70 border border-white rounded-xl px-2 text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-purple-400"
+          className="bg-white/70 dark:bg-slate-900/70 border border-white rounded-xl px-2 text-sm font-semibold text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-2 focus:ring-purple-400"
         >
           {Object.keys(RATES).map((code) => (
             <option key={code} value={code}>
@@ -81,8 +81,8 @@ const QuickConvert = () => {
           ))}
         </select>
       </div>
-
-      <p className="text-xs text-slate-500 mt-3">
+ 
+      <p className="text-xs text-slate-500 dark:text-slate-400 mt-3">
         1 {from} ≈ {rate.toFixed(4)} {to} &middot; No fee
       </p>
     </div>

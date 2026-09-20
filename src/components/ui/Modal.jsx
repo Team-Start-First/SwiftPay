@@ -38,7 +38,7 @@ const Modal = ({ isOpen, onClose, title, children }) => {
             onClick={onClose}
             className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm"
           />
-
+ 
           <motion.div
             role="dialog"
             aria-modal="true"
@@ -47,20 +47,20 @@ const Modal = ({ isOpen, onClose, title, children }) => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 16, scale: 0.98 }}
             transition={{ duration: 0.2 }}
-            className="relative z-10 w-full max-w-md max-h-[90dvh] overflow-y-auto rounded-3xl bg-white/95 backdrop-blur-lg border border-white/60 shadow-2xl p-6 sm:p-7"
+            className="relative z-10 w-full max-w-md max-h-[90dvh] overflow-y-auto rounded-3xl bg-white/95 dark:bg-slate-900/95 backdrop-blur-lg border border-white/60 shadow-2xl p-6 sm:p-7"
           >
             <div className="flex items-center justify-between mb-5">
-              <h2 className="text-lg font-bold text-slate-900">{title}</h2>
+              <h2 className="text-lg font-bold text-slate-900 dark:text-white">{title}</h2>
               <button
                 type="button"
                 onClick={onClose}
                 aria-label="Close"
-                className="w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-700 transition-colors"
+                className="w-9 h-9 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-slate-700 dark:text-slate-300 transition-colors"
               >
                 <FiX size={18} />
               </button>
             </div>
-
+ 
             {children}
           </motion.div>
         </motion.div>

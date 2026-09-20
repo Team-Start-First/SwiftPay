@@ -12,34 +12,34 @@ const STATUS_STYLES = {
 };
 
 const TransactionList = ({ transactions = [] }) => {
-  return (
-    <div className="rounded-3xl bg-white/65 backdrop-blur-lg border border-white/70 shadow-sm p-5 sm:p-6">
+return (
+    <div className="rounded-3xl bg-white/65 dark:bg-slate-900/65 backdrop-blur-lg border border-white/70 shadow-sm p-5 sm:p-6">
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-base font-bold text-slate-900">Recent transactions</h2>
+        <h2 className="text-base font-bold text-slate-900 dark:text-white">Recent transactions</h2>
         <button type="button" className="text-sm font-semibold text-pink-600 hover:text-pink-700">
           View all
         </button>
       </div>
-
+ 
       <ul>
         {transactions.map((tx) => {
           const style = TYPE_STYLES[tx.type] ?? TYPE_STYLES.sent;
           const Icon = style.icon;
           const isCredit = tx.direction === "in";
-
+ 
           return (
-            <li key={tx.id} className="flex items-center gap-3 py-3.5 border-b border-slate-200 last:border-b-0">
+            <li key={tx.id} className="flex items-center gap-3 py-3.5 border-b border-slate-200 dark:border-slate-700 last:border-b-0">
               <span className={`flex items-center justify-center w-10 h-10 rounded-xl shrink-0 ${style.classes}`}>
                 <Icon size={18} />
               </span>
-
+ 
               <div className="min-w-0 flex-1">
-                <p className="text-sm font-semibold text-slate-900 truncate">{tx.name}</p>
-                <p className="text-xs text-slate-400 mt-0.5">{tx.date}</p>
+                <p className="text-sm font-semibold text-slate-900 dark:text-white truncate">{tx.name}</p>
+                <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">{tx.date}</p>
               </div>
-
+ 
               <div className="text-right shrink-0">
-                <p className={`text-sm font-bold tabular-nums ${isCredit ? "text-green-600" : "text-slate-900"}`}>
+                <p className={`text-sm font-bold tabular-nums ${isCredit ? "text-green-600" : "text-slate-900 dark:text-white"}`}>
                   {isCredit ? "+" : "-"}
                   {tx.amount}
                 </p>

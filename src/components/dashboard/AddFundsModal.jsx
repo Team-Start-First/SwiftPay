@@ -47,13 +47,13 @@ const AddFundsModal = ({ isOpen, onClose }) => {
     <Modal isOpen={isOpen} onClose={resetAndClose} title="Add funds">
       {done ? (
         <div className="text-center py-4">
-          <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-green-100 text-green-600 flex items-center justify-center text-2xl">
+          <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 flex items-center justify-center text-2xl">
             ✓
           </div>
-          <p className="font-semibold text-slate-900">
+          <p className="font-semibold text-slate-900 dark:text-white">
             Adding {amount} {currency} via {METHODS.find((m) => m.id === method)?.label}
           </p>
-          <p className="text-sm text-slate-500 mt-1">This is a UI-only confirmation — wire up the real call above.</p>
+          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">This is a UI-only confirmation — wire up the real call above.</p>
           <button
             type="button"
             onClick={resetAndClose}
@@ -66,7 +66,7 @@ const AddFundsModal = ({ isOpen, onClose }) => {
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="flex gap-2">
             <div className="flex-1">
-              <label htmlFor="af-amount" className="text-xs font-semibold text-slate-600">
+              <label htmlFor="af-amount" className="text-xs font-semibold text-slate-600 dark:text-slate-400">
                 Amount
               </label>
               <input
@@ -77,19 +77,19 @@ const AddFundsModal = ({ isOpen, onClose }) => {
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
                 placeholder="0.00"
-                className="mt-1.5 w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
+                className="mt-1.5 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
                 required
               />
             </div>
             <div>
-              <label htmlFor="af-currency" className="text-xs font-semibold text-slate-600">
+              <label htmlFor="af-currency" className="text-xs font-semibold text-slate-600 dark:text-slate-400">
                 Currency
               </label>
               <select
                 id="af-currency"
                 value={currency}
                 onChange={(e) => setCurrency(e.target.value)}
-                className="mt-1.5 bg-slate-50 border border-slate-200 rounded-xl px-2 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
+                className="mt-1.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-2 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
               >
                 {CURRENCIES.map((code) => (
                   <option key={code} value={code}>
@@ -99,15 +99,15 @@ const AddFundsModal = ({ isOpen, onClose }) => {
               </select>
             </div>
           </div>
-
+ 
           <fieldset>
-            <legend className="text-xs font-semibold text-slate-600 mb-2">Funding method</legend>
+            <legend className="text-xs font-semibold text-slate-600 dark:text-slate-400 mb-2">Funding method</legend>
             <div className="space-y-2">
               {METHODS.map((m) => (
                 <label
                   key={m.id}
                   className={`flex items-center gap-3 px-3 py-2.5 rounded-xl border cursor-pointer transition-colors ${
-                    method === m.id ? "border-purple-400 bg-purple-50" : "border-slate-200 bg-slate-50"
+                    method === m.id ? "border-purple-400 bg-purple-50" : "border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800"
                   }`}
                 >
                   <input
@@ -118,12 +118,12 @@ const AddFundsModal = ({ isOpen, onClose }) => {
                     onChange={() => setMethod(m.id)}
                     className="accent-purple-500"
                   />
-                  <span className="text-sm font-medium text-slate-800">{m.label}</span>
+                  <span className="text-sm font-medium text-slate-800 dark:text-slate-100">{m.label}</span>
                 </label>
               ))}
             </div>
           </fieldset>
-
+ 
           <button
             type="submit"
             disabled={!isValid || submitting}
