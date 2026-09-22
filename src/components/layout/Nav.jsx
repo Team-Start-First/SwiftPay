@@ -3,9 +3,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
-import { MdDarkMode, MdOutlineLightMode } from "react-icons/md";
-import { RiMenu3Line } from "react-icons/ri";
-import { IoClose } from "react-icons/io5";
+
 
 
 const Navbar = () => {
