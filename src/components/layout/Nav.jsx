@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import AOS from "aos";
 import "aos/dist/aos.css";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
