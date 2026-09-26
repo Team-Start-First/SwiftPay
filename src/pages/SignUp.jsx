@@ -159,24 +159,28 @@ const SignUp = () => {
 
 
   return (
-    <div className="min-h-screen relative flex items-center justify-center bg-white">
+    <div
+      className="min-h-screen relative flex items-center justify-center bg-white dark:bg-gray-900 transition-colors "
+    >
       {/* Background Gradient Overlay */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(191,219,254,0.6),_transparent_40%),radial-gradient(circle_at_bottom_left,_#c084fc,_transparent_50%)]"></div>
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(191,219,254,0.6),_transparent_40%),radial-gradient(circle_at_bottom_left,_#c084fc,_transparent_50%)] dark:bg-[radial-gradient(circle_at_top_right,_rgba(88,28,135,0.4),_transparent_40%),radial-gradient(circle_at_bottom_left,_#7e22ce,_transparent_50%)]"></div>
 
       <div className="fixed top-0 w-full py-2.5 backdrop-blur-2xl left-6 z-20 flex items-center gap-2 ">
         <RiSecurePaymentLine className="size-8 text-purple-600" />
-        <h1 className="text-3xl font-bold text-gray-800 fold">SwiftPay </h1>
+        <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100 fold">
+          SwiftPay{" "}
+        </h1>
       </div>
 
       {/* Centered Form */}
       <div className="flex items-center justify-center h-full py-12 px-4  mt-8 z-10">
-        <div className="max-w-md w-full bg-white/40 backdrop-blur-lg rounded-lg shadow-md overflow-hidden">
+        <div className="max-w-md w-full bg-white/40 dark:bg-gray-800/50 backdrop-blur-lg rounded-lg shadow-md overflow-hidden">
           {/* Header */}
           <div className="py-4 px-6">
-            <h1 className="text-2xl text-purple-500 font-extrabold text-center fold">
+            <h1 className="text-2xl text-purple-500 dark:text-purple-400 font-extrabold text-center fold">
               Sign up
             </h1>
-            <p className="mt-3 text-gray-700 text-center ">
+            <p className="mt-3 text-gray-700 dark:text-gray-300 text-center ">
               Your road to smooth financial Life 🚀
             </p>
           </div>
@@ -188,7 +192,7 @@ const SignUp = () => {
               <div className="space-y-3 w-[20rem]">
                 <button
                   onClick={handleGoogleLogin}
-                  className="w-full flex items-center justify-center gap-2 bg-white border border-gray-300 rounded-3xl py-2.5 px-4 text-sm font-medium text-gray-700 hover:bg-gray-200 transition-colors"
+                  className="w-full flex items-center justify-center gap-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-3xl py-2.5 px-4 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
                 >
                   <FcGoogle className="size-5" />
                   Continue with Google
@@ -198,9 +202,11 @@ const SignUp = () => {
 
             {/* Divider */}
             <div className="flex items-center my-6">
-              <div className="flex-grow border-t border-gray-300"></div>
-              <span className="mx-4 text-gray-500 text-sm">or</span>
-              <div className="flex-grow border-t border-gray-300"></div>
+              <div className="flex-grow border-t border-gray-300 dark:border-gray-600"></div>
+              <span className="mx-4 text-gray-500 dark:text-gray-400 text-sm">
+                or
+              </span>
+              <div className="flex-grow border-t border-gray-300 dark:border-gray-600"></div>
             </div>
 
             {/* Sign Up Form */}
@@ -209,7 +215,7 @@ const SignUp = () => {
                 <div>
                   <label
                     htmlFor="first-name"
-                    className="block text-sm font-medium text-gray-700 mb-1"
+                    className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
                   >
                     First Name
                   </label>
@@ -219,8 +225,10 @@ const SignUp = () => {
                     name="firstName"
                     value={formData.firstName}
                     onChange={handleChange}
-                    className={`w-full px-4 py-2.5 border rounded-md focus:ring-2 focus:ring-purple-300 focus:border-purple-500 outline-none transition ${
-                      errors.firstName ? "border-red-500" : "border-gray-300"
+                    className={`w-full px-4 py-2.5 border rounded-md focus:ring-2 focus:ring-purple-300 focus:border-purple-500 outline-none transition bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 ${
+                      errors.firstName
+                        ? "border-red-500"
+                        : "border-gray-300 dark:border-gray-600"
                     }`}
                   />
                   {errors.firstName && (
@@ -232,7 +240,7 @@ const SignUp = () => {
                 <div>
                   <label
                     htmlFor="last-name"
-                    className="block text-sm font-medium text-gray-700 mb-1"
+                    className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
                   >
                     Last Name
                   </label>
@@ -242,8 +250,10 @@ const SignUp = () => {
                     name="lastName"
                     value={formData.lastName}
                     onChange={handleChange}
-                    className={`w-full px-4 py-2.5 border rounded-md focus:ring-2 focus:ring-purple-300 focus:border-purple-500 outline-none transition ${
-                      errors.lastName ? "border-red-500" : "border-gray-300"
+                    className={`w-full px-4 py-2.5 border rounded-md focus:ring-2 focus:ring-purple-300 focus:border-purple-500 outline-none transition bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 ${
+                      errors.lastName
+                        ? "border-red-500"
+                        : "border-gray-300 dark:border-gray-600"
                     }`}
                   />
                   {errors.lastName && (
@@ -257,7 +267,7 @@ const SignUp = () => {
               <div>
                 <label
                   htmlFor="email"
-                  className="block text-sm font-medium text-gray-700 mb-1"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
                 >
                   Email
                 </label>
@@ -266,12 +276,12 @@ const SignUp = () => {
                   type="email"
                   id="email"
                   name="email"
-                  onChange={(e) => {
-                    handleChange(e);
-                    checkEmailFormat(e.target.value);
-                  }}
-                  className={`w-full px-4 py-2.5 border rounded-md focus:ring-2 focus:ring-purple-300 focus:border-purple-500 outline-none transition ${
-                    errors.email ? "border-red-500" : "border-gray-300"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className={`w-full px-4 py-2.5 border rounded-md focus:ring-2 focus:ring-purple-300 focus:border-purple-500 outline-none transition bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 ${
+                    errors.email
+                      ? "border-red-500"
+                      : "border-gray-300 dark:border-gray-600"
                   }`}
                 />
                 {errors.email && (
@@ -282,7 +292,7 @@ const SignUp = () => {
               <div className="relative">
                 <label
                   htmlFor="password"
-                  className="block text-sm font-medium text-gray-700 mb-1"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
                 >
                   Password
                 </label>
@@ -293,8 +303,10 @@ const SignUp = () => {
                   name="password"
                   value={formData.password}
                   onChange={handleChange}
-                  className={`w-full px-4 py-2.5 border rounded-md focus:ring-2 focus:ring-purple-300 focus:border-purple-500 outline-none transition ${
-                    errors.password ? "border-red-500" : "border-gray-300"
+                  className={`w-full px-4 py-2.5 border rounded-md focus:ring-2 focus:ring-purple-300 focus:border-purple-500 outline-none transition bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 ${
+                    errors.password
+                      ? "border-red-500"
+                      : "border-gray-300 dark:border-gray-600"
                   }`}
                 />
                 <button
@@ -304,7 +316,7 @@ const SignUp = () => {
                 >
                   {showPassword ? (
                     <svg
-                      className="h-5 w-5 text-gray-500"
+                      className="h-5 w-5 text-gray-500 dark:text-gray-400"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -324,7 +336,7 @@ const SignUp = () => {
                     </svg>
                   ) : (
                     <svg
-                      className="h-5 w-5 text-gray-500"
+                      className="h-5 w-5 text-gray-500 dark:text-gray-400"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -346,7 +358,7 @@ const SignUp = () => {
               <div>
                 <label
                   htmlFor="country"
-                  className="block text-sm font-medium text-gray-700 mb-1"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
                 >
                   Country
                 </label>
@@ -355,7 +367,7 @@ const SignUp = () => {
                   name="country"
                   value={formData.country}
                   onChange={handleChange}
-                  className="w-full px-4 py-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-purple-300 focus:border-purple-500 outline-none transition"
+                  className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-2 focus:ring-purple-300 focus:border-purple-500 outline-none transition bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
                 >
                   <option value="Nigeria">Nigeria</option>
                   <option value="United States">United States</option>
@@ -384,7 +396,10 @@ const SignUp = () => {
                   />
                 </div>
                 <div className="ml-3 text-sm">
-                  <label htmlFor="send-emails" className="text-gray-700">
+                  <label
+                    htmlFor="send-emails"
+                    className="text-gray-700 dark:text-gray-300"
+                  >
                     Send me helpful emails to find rewarding work and job leads.
                   </label>
                 </div>
@@ -404,7 +419,10 @@ const SignUp = () => {
                   />
                 </div>
                 <div className="ml-3 text-sm">
-                  <label htmlFor="agree-to-terms" className="text-gray-700">
+                  <label
+                    htmlFor="agree-to-terms"
+                    className="text-gray-700 dark:text-gray-300"
+                  >
                     Yes, I understand and agree to the{" "}
                     <a href="#" className="text-green-600 hover:underline">
                       SwiftPay Terms of Service
@@ -440,11 +458,11 @@ const SignUp = () => {
 
             {/* Login Link */}
             <div className="mt-6 text-center">
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-gray-600 dark:text-gray-400">
                 Already have an account?
                 <Link
                   to="/Login"
-                  className="text-purple-600 font-medium hover:underline ml-1"
+                  className="text-purple-600 dark:text-purple-400 font-medium hover:underline ml-1"
                 >
                   Log in
                 </Link>

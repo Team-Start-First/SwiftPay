@@ -70,9 +70,9 @@ const ProfileSection = () => {
   return (
     <form
       onSubmit={handleSave}
-      className="rounded-2xl bg-white/70 backdrop-blur-lg border border-white/70 p-6 space-y-5"
+      className="rounded-2xl bg-white/70 dark:bg-slate-900/60 backdrop-blur-lg border border-white/70 dark:border-slate-800 p-6 space-y-5"
     >
-      <h2 className="text-base font-bold text-slate-900">Profile</h2>
+      <h2 className="text-base font-bold text-slate-900 dark:text-white">Profile</h2>
 
       <div className="flex items-center gap-4">
         <div className="relative">
@@ -85,19 +85,19 @@ const ProfileSection = () => {
           )}
           <label
             htmlFor="avatar-upload"
-            className="absolute -bottom-1 -right-1 w-7 h-7 rounded-full bg-white shadow-md border border-slate-200 flex items-center justify-center cursor-pointer hover:bg-slate-50"
+            className="absolute -bottom-1 -right-1 w-7 h-7 rounded-full bg-white dark:bg-slate-800 shadow-md border border-slate-200 dark:border-slate-700 flex items-center justify-center cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700"
           >
-            <FiCamera size={13} className="text-slate-600" />
+            <FiCamera size={13} className="text-slate-600 dark:text-slate-300" />
           </label>
           <input id="avatar-upload" type="file" accept="image/*" onChange={handleAvatarChange} className="hidden" />
         </div>
-        <div className="text-sm text-slate-500">
+        <div className="text-sm text-slate-500 dark:text-slate-400">
           {uploading ? "Uploading..." : "Click the camera icon to change your photo"}
         </div>
       </div>
 
       <div>
-        <label htmlFor="full-name" className="text-xs font-semibold text-slate-600">
+        <label htmlFor="full-name" className="text-xs font-semibold text-slate-600 dark:text-slate-400">
           Full name
         </label>
         <input
@@ -105,12 +105,12 @@ const ProfileSection = () => {
           type="text"
           value={fullName}
           onChange={(e) => setFullName(e.target.value)}
-          className="mt-1.5 w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
+          className="mt-1.5 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
         />
       </div>
 
       <div>
-        <label htmlFor="phone" className="text-xs font-semibold text-slate-600">
+        <label htmlFor="phone" className="text-xs font-semibold text-slate-600 dark:text-slate-400">
           Phone number
         </label>
         <input
@@ -119,22 +119,22 @@ const ProfileSection = () => {
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
           placeholder="+234 800 000 0000"
-          className="mt-1.5 w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
+          className="mt-1.5 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
         />
       </div>
 
       <div>
-        <label className="text-xs font-semibold text-slate-600">Email</label>
+        <label className="text-xs font-semibold text-slate-600 dark:text-slate-400">Email</label>
         <input
           type="email"
           value={user?.email || ""}
           disabled
-          className="mt-1.5 w-full bg-slate-100 border border-slate-200 rounded-xl px-3 py-2.5 text-sm text-slate-500 cursor-not-allowed"
+          className="mt-1.5 w-full bg-slate-100 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm text-slate-500 dark:text-slate-500 cursor-not-allowed"
         />
         <p className="text-xs text-slate-400 mt-1">Changing your email requires a separate verification flow.</p>
       </div>
 
-      {error && <p className="text-sm text-red-600">{error}</p>}
+      {error && <p className="text-sm text-red-600 dark:text-red-400">{error}</p>}
 
       <button
         type="submit"

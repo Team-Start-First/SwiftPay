@@ -98,25 +98,29 @@ const Login = () => {
   const togglePasswordVisibility = () => setShowPassword(!showPassword);
 
   return (
-    <div className="min-h-screen relative flex items-center justify-center bg-white">
+   <div
+      className={"min-h-screen relative flex items-center justify-center bg-white dark:bg-gray-900 transition-colors"}
+    >
       {/* Background Gradient */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(191,219,254,0.6),_transparent_40%),radial-gradient(circle_at_bottom_left,_#c084fc,_transparent_50%)]"></div>
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(191,219,254,0.6),_transparent_40%),radial-gradient(circle_at_bottom_left,_#c084fc,_transparent_50%)] dark:bg-[radial-gradient(circle_at_top_right,_rgba(88,28,135,0.4),_transparent_40%),radial-gradient(circle_at_bottom_left,_#7e22ce,_transparent_50%)]"></div>
 
       {/* Logo */}
       <div className="fixed top-4 left-6 flex items-center gap-2">
         <RiSecurePaymentLine className="size-8 text-purple-600" />
-        <h1 className="text-3xl font-bold text-gray-800 fold">SwiftPay</h1>
+        <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100 fold">
+          SwiftPay
+        </h1>
       </div>
 
       {/* Form Card */}
       <div className="flex items-center justify-center h-full py-12 px-4 mt-8 z-10">
-        <div className="max-w-md w-full bg-white/40 backdrop-blur-lg rounded-lg shadow-md overflow-hidden">
+        <div className="max-w-md w-full bg-white/40 dark:bg-gray-800/50 backdrop-blur-lg rounded-lg shadow-md overflow-hidden">
           {/* Header */}
           <div className="py-4 px-6">
-            <h1 className="text-2xl text-purple-500 font-extrabold text-center fold">
+            <h1 className="text-2xl text-purple-500 dark:text-purple-400 font-extrabold text-center fold">
               Log in
             </h1>
-            <p className="mt-2 text-gray-700 text-center ">
+            <p className="mt-2 text-gray-700 dark:text-gray-300 text-center ">
               Welcome back, Let’s get you signed in
             </p>
           </div>
@@ -126,7 +130,7 @@ const Login = () => {
             <div className="flex justify-center">
               <button
                 onClick={handleGoogleLogin}
-                className="w-[20rem] flex items-center justify-center gap-2 bg-white border border-gray-300 rounded-3xl py-2.5 px-4 text-sm font-medium text-gray-700 hover:bg-gray-200 transition-colors"
+                className="w-[20rem] flex items-center justify-center gap-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-3xl py-2.5 px-4 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
               >
                 <FcGoogle className="size-5" />
                 Continue with Google
@@ -135,9 +139,11 @@ const Login = () => {
 
             {/* Divider */}
             <div className="flex items-center my-6">
-              <div className="flex-grow border-t border-gray-300"></div>
-              <span className="mx-4 text-gray-500 text-sm">or</span>
-              <div className="flex-grow border-t border-gray-300"></div>
+              <div className="flex-grow border-t border-gray-300 dark:border-gray-600"></div>
+              <span className="mx-4 text-gray-500 dark:text-gray-400 text-sm">
+                or
+              </span>
+              <div className="flex-grow border-t border-gray-300 dark:border-gray-600"></div>
             </div>
 
             {/* Login Form */}
@@ -146,7 +152,7 @@ const Login = () => {
               <div>
                 <label
                   htmlFor="email"
-                  className="block text-sm font-medium text-gray-700 mb-1"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
                 >
                   Email
                 </label>
@@ -157,8 +163,10 @@ const Login = () => {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className={`w-full px-4 py-2.5 border rounded-md focus:ring-2 focus:ring-purple-300 focus:border-purple-500 outline-none transition ${
-                    errors.email ? "border-red-500" : "border-gray-300"
+                  className={`w-full px-4 py-2.5 border rounded-md focus:ring-2 focus:ring-purple-300 focus:border-purple-500 outline-none transition bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 ${
+                    errors.email
+                      ? "border-red-500"
+                      : "border-gray-300 dark:border-gray-600"
                   }`}
                 />
                 {errors.email && (
@@ -170,7 +178,7 @@ const Login = () => {
               <div className="relative">
                 <label
                   htmlFor="password"
-                  className="block text-sm font-medium text-gray-700 mb-1"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
                 >
                   Password
                 </label>
@@ -181,8 +189,10 @@ const Login = () => {
                   name="password"
                   value={formData.password}
                   onChange={handleChange}
-                  className={`w-full px-4 py-2.5 border rounded-md focus:ring-2 focus:ring-purple-300 focus:border-purple-500 outline-none transition ${
-                    errors.password ? "border-red-500" : "border-gray-300"
+                  className={`w-full px-4 py-2.5 border rounded-md focus:ring-2 focus:ring-purple-300 focus:border-purple-500 outline-none transition bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 ${
+                    errors.password
+                      ? "border-red-500"
+                      : "border-gray-300 dark:border-gray-600"
                   }`}
                 />
                 <button
@@ -192,7 +202,7 @@ const Login = () => {
                 >
                   {showPassword ? (
                     <svg
-                      className="h-5 w-5 text-gray-500"
+                      className="h-5 w-5 text-gray-500 dark:text-gray-400"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -212,7 +222,7 @@ const Login = () => {
                     </svg>
                   ) : (
                     <svg
-                      className="h-5 w-5 text-gray-500"
+                      className="h-5 w-5 text-gray-500 dark:text-gray-400"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -233,7 +243,7 @@ const Login = () => {
 
               {/* Remember me + Forgot password */}
               <div className="flex items-center justify-between">
-                <label className="flex items-center text-sm text-gray-700">
+                <label className="flex items-center text-sm text-gray-700 dark:text-gray-300">
                   <input
                     type="checkbox"
                     name="rememberMe"
@@ -245,7 +255,7 @@ const Login = () => {
                 </label>
                 <Link
                   to="/ForgotPassword"
-                  className="text-sm text-purple-600 hover:underline"
+                  className="text-sm text-purple-600 dark:text-purple-400 hover:underline"
                 >
                   Forgot password?
                 </Link>
@@ -265,11 +275,11 @@ const Login = () => {
 
             {/* Sign up link */}
             <div className="mt-6 text-center">
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-gray-600 dark:text-gray-400">
                 Don’t have an account?
                 <Link
                   to="/signup"
-                  className="text-purple-600 font-medium hover:underline ml-1"
+                  className="text-purple-600 dark:text-purple-400 font-medium hover:underline ml-1"
                 >
                   Sign up
                 </Link>
