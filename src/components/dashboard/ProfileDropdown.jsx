@@ -60,7 +60,7 @@ const ProfileDropdown = () => {
             {initials}
           </span>
         )}
-        <span className="text-sm font-semibold text-slate-700 dark:text-slate-300 max-w-[120px] truncate">{name}</span>
+        <span className="text-sm font-semibold text-slate-700 dark:text-slate-300 max-w-[120px] truncate">Hi, {name}</span>
         <FiChevronDown size={14} className={`text-slate-500 dark:text-slate-400 transition-transform ${open ? "rotate-180" : ""}`} />
       </button>
  

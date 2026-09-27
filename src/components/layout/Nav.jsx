@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "aos/dist/aos.css";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
+import { RiSecurePaymentLine } from "react-icons/ri";
 
 
 
@@ -70,12 +71,12 @@ const Navbar = () => {
   bg-white/30 backdrop-blur-xl border border-white/30
   shadow-lg shadow-black/5"
         >
-          <div
-            className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-pink-500
-    flex items-center justify-center shadow-md"
-          >
-            <span className="text-white font-bold text-lg">S</span>
-          </div>
+           <span className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-pink-500 flex items-center justify-center">
+            {/* White disc sits on top of the gradient — gradient only shows in the ring around it */}
+            <span className="w-6 h-6 rounded-full bg-white flex items-center justify-center">
+              <RiSecurePaymentLine className="size-6 text-purple-600" />
+            </span>
+          </span>
           <span className="font-semibold text-lg tracking-wide text-gray-900">
             SwiftPay
           </span>
