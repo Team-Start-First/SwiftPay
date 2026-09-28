@@ -20,7 +20,7 @@ const TABS = [
  */
 const BottomNav = () => (
   <nav
-    className="md:hidden fixed bottom-0 inset-x-0 z-30 bg-white/85 dark:bg-slate-950/85 backdrop-blur-xl border-t border-slate-200 dark:border-slate-800"
+    className="md:hidden fixed bottom-0 inset-x-0 z-30 bg-white/85 dark:bg-slate-950/85 backdrop-blur-sm border-t rounded-2xl border-slate-200 dark:border-slate-800"
     style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}
   >
     <div className="grid grid-cols-5">
@@ -29,8 +29,8 @@ const BottomNav = () => (
           {({ isActive }) => (
             <>
               <span
-                className={`relative flex items-center justify-center w-10 h-10 rounded-2xl ${
-                  isActive ? "text-white" : "text-slate-500 dark:text-slate-400"
+                className={`relative flex items-center justify-center w-15 h-8 rounded-2xl ${
+                  isActive ? "text-purple-600/60" : "text-slate-500 dark:text-slate-400"
                 }`}
               >
                 {isActive && (
@@ -38,14 +38,14 @@ const BottomNav = () => (
                     initial={{ scale: 0.6, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                    className="absolute inset-0 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-500 shadow-md shadow-purple-500/30"
+                    className="absolute inset-0 rounded-2xl bg-purple-300/60 shadow-lg shadow-purple-500/30"
                   />
                 )}
                 <Icon size={20} className="relative z-10" />
               </span>
               <span
                 className={`text-[11px] font-medium ${
-                  isActive ? "text-purple-600 dark:text-purple-400" : "text-slate-500 dark:text-slate-500"
+                  isActive ? "text-purple-600/60 dark:text-purple-400" : "text-slate-500 dark:text-slate-500"
                 }`}
               >
                 {label}

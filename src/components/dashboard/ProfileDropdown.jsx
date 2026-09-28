@@ -51,7 +51,7 @@ const ProfileDropdown = () => {
         onClick={() => setOpen((v) => !v)}
         aria-haspopup="menu"
         aria-expanded={open}
-        className="flex items-center gap-2 pl-2 pr-3 py-1.5 rounded-full bg-white/50 dark:bg-slate-900/50 backdrop-blur-xl border border-white/40 shadow-sm"
+        className="flex items-center gap-2 px-3 py-2 rounded-full bg-white/10 dark:bg-slate-900/40 backdrop-blur-lg border border-white/20 shadow-lg"
       >
         {avatarUrl ? (
           <img src={avatarUrl} alt="" className="w-8 h-8 rounded-full object-cover shrink-0" />
@@ -72,7 +72,7 @@ const ProfileDropdown = () => {
             exit={{ opacity: 0, y: -6, scale: 0.97 }}
             transition={{ duration: 0.15 }}
             role="menu"
-            className="absolute right-0 mt-2 w-56 rounded-2xl bg-white/95 dark:bg-slate-900/95 backdrop-blur-lg border border-white/60 shadow-xl overflow-hidden z-40"
+            className="absolute right-0 mt-2 w-56 rounded-2xl bg-white/10 dark:bg-slate-900/40 backdrop-blur-lg border border-white/20 shadow-lg overflow-hidden z-40"
           >
             <div className="px-4 py-3 border-b border-slate-100 dark:border-slate-800">
               <p className="text-sm font-semibold text-slate-900 dark:text-white truncate">{name}</p>
@@ -103,7 +103,7 @@ const ProfileDropdown = () => {
               type="button"
               onClick={handleSignOut}
               role="menuitem"
-              className="flex items-center gap-3 w-full px-4 py-3 text-sm font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/40 transition-colors border-t border-slate-100 dark:border-slate-800"
+              className="flex items-center gap-3 w-full px-4 py-3 text-sm font-medium text-red-600 dark:text-red-400 hover:bg-red-800/50 dark:hover:bg-red-950/40 transition-colors border-t border-slate-100 dark:border-slate-800"
             >
               <FiLogOut size={16} />
               Sign out

@@ -115,7 +115,7 @@ const DashboardNav = () => {
 
   return (
     <>
-    <header className="sticky top-0 z-30 ">
+    <header className="sticky top-6 z-30 ">
       <div className="flex items-center justify-between gap-3 max-w-6xl mx-auto px-4 sm:px-6 py-4">
         <Link
           to="/dashboard"
@@ -145,7 +145,7 @@ const DashboardNav = () => {
               aria-label={`Switch to ${
                 theme === "dark" ? "light" : "dark"
               } mode`}
-              className="flex items-center justify-center w-10 h-10 rounded-full bg-white/50 dark:bg-slate-800/60 backdrop-blur-xl border border-white/40 dark:border-slate-700 shadow-sm text-slate-900 dark:text-slate-100 transition-colors"
+              className="flex items-center justify-center w-10 h-10 rounded-full bg-white/10 dark:bg-slate-900/40 backdrop-blur-lg border border-white/20 dark:border-slate-700 shadow-lg text-slate-900 dark:text-slate-100 transition-colors"
             >
               {theme === "dark" ? (
                 <FiMoon className="size-{17}" />
@@ -165,7 +165,7 @@ const DashboardNav = () => {
               aria-label={`Switch to ${
                 theme === "dark" ? "light" : "dark"
               } mode`}
-              className="flex items-center justify-center w-10 h-10 rounded-full bg-white/50 dark:bg-slate-800/60 backdrop-blur-xl border border-white/40 dark:border-slate-700 shadow-sm text-slate-900 dark:text-slate-100 transition-colors"
+              className="flex items-center justify-center w-10 h-10 rounded-full bg-white/10 dark:bg-slate-900/40 backdrop-blur-lg border border-white/20 dark:border-slate-700 shadow-lg text-slate-900 dark:text-slate-100 transition-colors"
             >
               {theme === "dark" ? (
                 <FiMoon className="size-{17}" />

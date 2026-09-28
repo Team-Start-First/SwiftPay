@@ -20,7 +20,7 @@ const BalanceCard = ({ totalBalance = "$12,480.50", monthlyChange = "+$1,240", w
           </div>
         </div>
  
-        <div className="flex items-center gap-3 rounded-2xl bg-white/60 dark:bg-slate-900/60 backdrop-blur-lg border border-white/60 shadow-md px-4 py-3 self-start animate-[float_5s_ease-in-out_infinite]">
+        <div className="absolute top-[8%] right-[-8%] flex items-center gap-2 rounded-2xl bg-white/30 dark:bg-slate-900/60 backdrop-blur-lg border border-white/20 shadow-xl px-4 py-2 self-start animate-[float_5s_ease-in-out_infinite]">
           <span className="w-9 h-9 rounded-full bg-pink-400/60 flex items-center justify-center text-pink-700">
             <FiZap size={16} />
           </span>
