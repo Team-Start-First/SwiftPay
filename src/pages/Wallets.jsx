@@ -55,7 +55,7 @@ const Wallets = () => {
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
       <DashboardNav />
  
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 pb-16 space-y-6">
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 pb-16 space-y-6 pt-8">
         <div className="flex items-center gap-3">
           <span className="w-11 h-11 rounded-xl bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center shrink-0">
             <FiWallet size={22} />

@@ -115,7 +115,7 @@ const DashboardNav = () => {
 
   return (
     <>
-    <header className="sticky top-6 z-30 ">
+    <header className="sticky top-3 z-30 ">
       <div className="flex items-center justify-between gap-3 max-w-6xl mx-auto px-4 sm:px-6 py-4">
         <Link
           to="/dashboard"

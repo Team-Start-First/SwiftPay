@@ -24,7 +24,7 @@ const Dashboard = () => {
     <div className="min-h-screen bg-slate-200 dark:bg-slate-950">
       <DashboardNav />
  
-      <main className="max-w-6xl mx-auto px-8 sm:px-6 pb-16 pt-10">
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 pb-16 pt-8">
         <div className="mb-6">
           <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">
             {loading ? "Good afternoon 👋" : `Good afternoon, ${firstName} 👋`}
